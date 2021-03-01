@@ -81,6 +81,8 @@ def generate_classes(dir, registry, msgs, xml):
                 for field in m.fields:
                     if field.enum:
                         f.write("\tpublic {}!: {};\n".format(field.name, camelcase(field.enum)))
+                    elif field.array_length != 0 and field.type != 'char':
+                        f.write("\tpublic {}!: {}[];\n".format(field.name, ts_types[field.type]))
                     else:
                         f.write("\tpublic {}!: {};\n".format(field.name, ts_types[field.type]))
 
